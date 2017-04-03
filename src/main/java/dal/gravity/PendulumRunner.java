@@ -9,13 +9,13 @@ import java.text.NumberFormat;
 public class PendulumRunner {
 
 	private final static double EARTH_GRAVITY = 9.80665;
-	private final static double JUPITAR_GRAVITY = 25;
+	private final static double JUPITER_GRAVITY = 25;
 	
     public static void main (String [] args) {
 	NumberFormat nf = NumberFormat.getInstance ();
 	nf.setMaximumFractionDigits (3);
 	GravityModel gEarth = new GravityConstant(EARTH_GRAVITY);
-	GravityModel gJupitar = new GravityConstant(JUPITAR_GRAVITY);
+	GravityModel gJupitar = new GravityConstant(JUPITER_GRAVITY);
 	double delta = (args.length == 0) ? .1 : Double.parseDouble (args[0]);
 	double sLen = 10, pMass = 10, theta0 = Math.PI/30;
 	RegularPendulum rp = new RegularPendulum (sLen, pMass, theta0, delta,gEarth);
@@ -27,7 +27,7 @@ public class PendulumRunner {
 	int iterations = (int) (1/delta);
 	System.out.println("Earth");
 	System.out.println ("analytical vs. numerical displacement (fine, coarse)");
-	for (int second = 1; second <= 20; second++) {
+	for (int second = 1; second <= 15; second++) {
 	    for (int i = 0; i < iterations; i++) 
 	    System.out.println ("t=" + second + "s: \t" + 
 				nf.format (Math.toDegrees (sp.getTheta (second))) 
@@ -40,9 +40,9 @@ public class PendulumRunner {
 	
 		rp.setGravitationalField(gJupitar);
 		sp.setGravitationalField(gJupitar);
-	    System.out.println("\nJupitar");
+	    System.out.println("\nJupiter");
 	    System.out.println ("analytical vs. numerical displacement (fine, coarse)");
-		for (int second = 1; second <= 20; second++) {
+		for (int second = 1; second <= 13; second++) {
 		    for (int i = 0; i < iterations; i++) 
 		    System.out.println ("t=" + second + "s: \t" + 
 					nf.format (Math.toDegrees (sp.getTheta (second))) 

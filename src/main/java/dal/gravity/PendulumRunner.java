@@ -26,31 +26,24 @@ public class PendulumRunner {
 	// for 20 seconds
 	int iterations = (int) (1/delta);
 	System.out.println("Earth");
-	System.out.println ("analytical vs. numerical displacement (fine, coarse)");
-	for (int second = 1; second <= 15; second++) {
-	    for (int i = 0; i < iterations; i++) 
-	    System.out.println ("t=" + second + "s: \t" + 
-				nf.format (Math.toDegrees (sp.getTheta (second))) 
-				+ "\t" +
-				nf.format (Math.toDegrees (rp.getLastTheta ()))
-				+ "\t" + 
-				nf.format (Math.toDegrees (rpCoarse.getLastTheta ())));
-	}
-	    
-	
-		rp.setGravitationalField(gJupitar);
-		sp.setGravitationalField(gJupitar);
-	    System.out.println("\nJupiter");
-	    System.out.println ("analytical vs. numerical displacement (fine, coarse)");
-		for (int second = 1; second <= 13; second++) {
-		    for (int i = 0; i < iterations; i++) 
-		    System.out.println ("t=" + second + "s: \t" + 
-					nf.format (Math.toDegrees (sp.getTheta (second))) 
-					+ "\t" +
-					nf.format (Math.toDegrees (rp.getLastTheta ()))
-					+ "\t" + 
-					nf.format (Math.toDegrees (rpCoarse.getLastTheta ())));
-		}
+    System.out.println ("analytical vs. numerical displacement (fine, coarse)");
+    for (int second = 1; second <= 20; second++) {
+        if (second == 11) {
+            rp.setGravitationalField(gJupitar);
+            sp.setGravitationalField(gJupitar);
+            rpCoarse.setGravitationalField(gJupitar);
+        	System.out.println("\nJupiter");
+            System.out.println ("analytical vs. numerical displacement (fine, coarse)");
+        }
+        for (int i = 0; i < iterations; i++) rp.step ();
+        for (int i = 0; i < 10; i++) rpCoarse.step (); 
+        System.out.println ("t=" + second + "s: \t" + 
+                nf.format (Math.toDegrees (sp.getTheta (second))) 
+        + "\t" +
+        nf.format (Math.toDegrees (rp.getLastTheta ()))
+        + "\t" + 
+        nf.format (Math.toDegrees (rpCoarse.getLastTheta ())));
+
     }
 }
-
+}
